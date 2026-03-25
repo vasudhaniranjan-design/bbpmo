@@ -3,186 +3,340 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BBPMO Presentation</title>
+  <title>BBPMO | Fios Build Program Governance</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: 'Segoe UI', Arial, sans-serif;
-      background: #f4f4f6;
+      background: #f0f0f0;
       color: #1a1a1a;
     }
 
+    /* HEADER */
     header {
       background: #cd040b;
-      color: white;
-      padding: 32px 48px;
-      border-bottom: 4px solid #8b0000;
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -60px;
+      width: 300px; height: 300px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+    }
+
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; left: 40%;
+      width: 200px; height: 200px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 40px 40px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header-tag {
+      display: inline-block;
+      background: #fff;
+      color: #cd040b;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 2px;
+      margin-bottom: 16px;
     }
 
     header h1 {
-      font-size: 2rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+    }
+
+    header h1 span {
+      color: #fff;
     }
 
     header p {
-      margin-top: 6px;
-      font-size: 0.9rem;
-      opacity: 0.85;
+      margin-top: 12px;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.85);
+      max-width: 640px;
+      line-height: 1.6;
     }
 
+    /* GOAL STRIP */
+    .goal-strip {
+      background: #8b0000;
+      padding: 14px 40px;
+      text-align: center;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.5px;
+    }
+
+    .goal-strip span {
+      color: #fff;
+      font-size: 1.1rem;
+    }
+
+    /* MAIN */
     .container {
-      max-width: 960px;
+      max-width: 1100px;
       margin: 48px auto;
       padding: 0 24px;
     }
 
-    .intro {
-      background: white;
-      border-left: 5px solid #cd040b;
-      border-radius: 4px;
-      padding: 24px 28px;
-      margin-bottom: 36px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    /* STATS BAR */
+    .stats-bar {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      display: flex;
+      align-items: stretch;
+      overflow: hidden;
+      margin-bottom: 48px;
     }
 
-    .intro h2 {
-      font-size: 1.2rem;
+    .stat {
+      flex: 1;
+      padding: 28px 32px;
+      text-align: center;
+      border-right: 1px solid #f0f0f0;
+    }
+
+    .stat:last-child { border-right: none; }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 800;
       color: #cd040b;
-      margin-bottom: 10px;
+      line-height: 1;
     }
 
-    .intro p {
-      font-size: 0.97rem;
-      line-height: 1.7;
-      color: #333;
+    .stat:nth-child(2) .stat-value {
+      color: #cd040b;
     }
 
-    .goal-badge {
-      display: inline-block;
-      background: #cd040b;
-      color: white;
-      font-weight: 700;
-      font-size: 0.85rem;
-      padding: 4px 12px;
-      border-radius: 20px;
-      margin-top: 12px;
+    .stat-label {
+      font-size: 0.78rem;
+      color: #888;
+      margin-top: 6px;
+      font-weight: 600;
+      text-transform: uppercase;
       letter-spacing: 0.5px;
     }
 
+    /* SECTION LABEL */
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #cd040b;
+      margin-bottom: 20px;
+    }
+
+    /* CARDS */
     .cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 24px;
     }
 
     .card {
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-      padding: 28px;
-      transition: transform 0.15s, box-shadow 0.15s;
-      border-top: 4px solid #cd040b;
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
     }
 
     .card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.13);
+    }
+
+    .card-top {
+      background: #cd040b;
+      padding: 28px 28px 20px;
+    }
+
+    .card:nth-child(2) .card-top {
+      background: #1a1a1a;
     }
 
     .card-icon {
-      font-size: 2rem;
-      margin-bottom: 14px;
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+      display: block;
     }
 
-    .card h3 {
-      font-size: 1rem;
+    .card-top h3 {
+      font-size: 1.05rem;
       font-weight: 700;
-      color: #1a1a1a;
+      color: #fff;
+      line-height: 1.4;
+    }
+
+    .card-badge {
+      display: inline-block;
+      background: #fff;
+      color: #cd040b;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 2px;
       margin-bottom: 10px;
     }
 
-    .card p {
-      font-size: 0.88rem;
-      color: #555;
-      line-height: 1.6;
+    .card-body {
+      padding: 24px 28px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
     }
 
-    .card .btn {
+    .card-body p {
+      font-size: 0.9rem;
+      color: #555;
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    .btn {
       display: inline-block;
-      margin-top: 18px;
+      margin-top: 20px;
       background: #cd040b;
-      color: white;
+      color: #fff;
       text-decoration: none;
-      padding: 9px 20px;
+      padding: 11px 24px;
       border-radius: 4px;
       font-size: 0.85rem;
-      font-weight: 600;
+      font-weight: 700;
+      letter-spacing: 0.3px;
       transition: background 0.15s;
+      align-self: flex-start;
     }
 
-    .card .btn:hover {
-      background: #a00309;
+    .btn:hover { background: #a00309; }
+
+    .card:nth-child(2) .btn {
+      background: #1a1a1a;
     }
 
+    .card:nth-child(2) .btn:hover {
+      background: #333;
+    }
+
+    /* FOOTER */
     footer {
+      background: #1a1a1a;
+      color: #aaa;
       text-align: center;
-      padding: 40px 24px;
+      padding: 32px 24px;
       font-size: 0.8rem;
-      color: #999;
-      margin-top: 48px;
-      border-top: 1px solid #ddd;
+      margin-top: 60px;
+    }
+
+    footer span { color: #fff; font-weight: 700; }
+
+    @media (max-width: 640px) {
+      header h1 { font-size: 1.7rem; }
+      .stats-bar { flex-direction: column; }
+      .stat { border-right: none; border-bottom: 1px solid #f0f0f0; }
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>BBPMO Presentation</h1>
-    <p>Fios Build Broadband Program Management Office &mdash; March 2026</p>
+    <div class="header-inner">
+      <div class="header-tag">March 2026</div>
+      <h1>Fios Build <span>Broadband</span><br>Program Governance</h1>
+      <p>A deep-dive into last month's metrics readout and a walk-through of the building blocks supporting the Fios Build Broadband PMO.</p>
+    </div>
   </header>
+
+  <div class="goal-strip">
+    2026 Annual Goal &mdash; <span>590K OFS</span> &mdash; Fios Build Broadband PMO
+  </div>
 
   <div class="container">
 
-    <div class="intro">
-      <h2>Fios Build Program Governance &mdash; March 2026</h2>
-      <p>
-        This month's slideware showcases a deep-dive into last month's metrics readout and provides
-        a walk-through of the building blocks supporting the Fios Build Broadband PMO — leading the
-        path to the goal of 590K OFS for 2026.
-      </p>
-      <span class="goal-badge">2026 Goal: 590K OFS</span>
+    <div class="stats-bar">
+      <div class="stat">
+        <div class="stat-value">590K</div>
+        <div class="stat-label">OFS Goal 2026</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">Mar</div>
+        <div class="stat-label">Current Month</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">2026</div>
+        <div class="stat-label">Program Year</div>
+      </div>
     </div>
+
+    <p class="section-label">Resources &amp; Updates</p>
 
     <div class="cards">
 
       <div class="card">
-        <div class="card-icon">📊</div>
-        <h3>Fios Build Program Governance &mdash; March 2026</h3>
-        <p>Full slideware deck with metrics readout and program building blocks overview.</p>
-        <a href="https://docs.google.com/presentation/d/1JO14mWKhAUzEvfMI54lfX0Wdp6nbmuhbAUNh9xES-PI/edit?slide=id.g3d21ee8105a_0_5&pli=1#slide=id.g3d21ee8105a_0_5" target="_blank" class="btn">View Presentation</a>
+        <div class="card-top">
+          <div class="card-badge">Slideware</div>
+          <span class="card-icon">ðŸ“Š</span>
+          <h3>Fios Build Program Governance &mdash; March 2026</h3>
+        </div>
+        <div class="card-body">
+          <p>Full metrics readout and program building blocks overview for the Fios Build Broadband PMO leading the path to 590K OFS.</p>
+          <a href="https://docs.google.com/presentation/d/1JO14mWKhAUzEvfMI54lfX0Wdp6nbmuhbAUNh9xES-PI/edit?slide=id.g3cd42fb838e_0_9&pli=1#slide=id.g3cd42fb838e_0_9" target="_blank" class="btn">View Presentation</a>
+        </div>
       </div>
 
       <div class="card">
-        <div class="card-icon">🎙️</div>
-        <h3>BBPMO Vid Podcast</h3>
-        <p>Watch the latest video podcast from the Broadband PMO team.</p>
-        <a href="https://docs.google.com/videos/d/19og21jyZcou1XbynE0njyQzCBPW9qiDkq2AfHxV-TSQ/edit?scene=id.g4c084e9f_0_31#scene=id.g4c084e9f_0_31" target="_blank" class="btn">Watch Now</a>
+        <div class="card-top">
+          <div class="card-badge">Video</div>
+          <span class="card-icon">ðŸŽ™ï¸</span>
+          <h3>BBPMO Vid Podcast</h3>
+        </div>
+        <div class="card-body">
+          <p>Watch the latest video podcast from the Broadband PMO team covering key updates and program highlights.</p>
+          <a href="https://docs.google.com/videos/d/19og21jyZcou1XbynE0njyQzCBPW9qiDkq2AfHxV-TSQ/edit?scene=id.g4c084e9f_0_1#scene=id.g4c084e9f_0_1" target="_blank" class="btn">Watch Now</a>
+        </div>
       </div>
 
       <div class="card">
-        <div class="card-icon">📈</div>
-        <h3>BBPMO Infographic</h3>
-        <p>
-          Review the February Infographic for a quick overview of how we are performing against
-          the 2026 goal of 590K OFS.
-        </p>
-        <a href="https://docs.google.com/presentation/d/1JO14mWKhAUzEvfMI54lfX0Wdp6nbmuhbAUNh9xES-PI/edit?slide=id.g396458b832b_0_868&pli=1#slide=id.g396458b832b_0_868" target="_blank" class="btn">View Infographic</a>
+        <div class="card-top">
+          <div class="card-badge">Infographic</div>
+          <span class="card-icon">ðŸ“ˆ</span>
+          <h3>BBPMO February Infographic</h3>
+        </div>
+        <div class="card-body">
+          <p>A quick overview of how we are performing against the 2026 goal of 590K OFS. Review the February metrics at a glance.</p>
+          <a href="https://docs.google.com/presentation/d/1JO14mWKhAUzEvfMI54lfX0Wdp6nbmuhbAUNh9xES-PI/edit?slide=id.g396458b832b_0_868&pli=1#slide=id.g396458b832b_0_868" target="_blank" class="btn">View Infographic</a>
+        </div>
       </div>
 
     </div>
@@ -190,7 +344,7 @@
   </div>
 
   <footer>
-    &copy; 2026 Fios Build Broadband PMO &mdash; Internal Use Only
+    &copy; 2026 <span>Fios Build Broadband PMO</span> &mdash; Internal Use Only
   </footer>
 
 </body>
